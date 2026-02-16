@@ -1,0 +1,47 @@
+
+clients:
+  BC:
+    features:
+      forgetUsername: true
+      forgetPassword: true
+      mfa: true
+      passwordExpiryRedirect: true
+    sessionPolicy:
+      idleTimeoutMinutes: 30
+      absoluteMaxHours: 8
+      concurrentLogin: INVALIDATE_OLD
+    oauthProvider: BC_OAUTH2
+  IHS:
+    features:
+      forgetUsername: false
+      forgetPassword: true
+      mfa: false
+      passwordExpiryRedirect: false
+    sessionPolicy:
+      idleTimeoutMinutes: 60
+      absoluteMaxHours: 12
+      concurrentLogin: ALLOW
+    oauthProvider: IHS_XYZ
+  RC:
+    features:
+      forgetUsername: true
+      forgetPassword: true
+      mfa: false
+      passwordExpiryRedirect: false
+    sessionPolicy:
+      idleTimeoutMinutes: 15
+      absoluteMaxHours: 4
+      concurrentLogin: BLOCK
+    oauthProvider: RC_OKTA
+
+crossRealm:
+  # if user is authenticated in BC, allow auto-session for these realms without login
+  BC:
+    allowedClients: [RC, IHS]
+    blockedClients: [PC]
+  PC:
+    allowedClients: [RC]
+    blockedClients: [IHS]
+  IHS:
+    allowedClients: []
+    blockedClients: [BC, PC]

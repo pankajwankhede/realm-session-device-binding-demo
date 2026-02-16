@@ -1,0 +1,19 @@
+
+server:
+  port: 8080
+  servlet:
+    context-path: /ssopartner
+    session:
+      tracking-modes: cookie
+  forward-headers-strategy: native
+
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/viewjsp/
+      suffix: .jsp
+
+logging:
+  level:
+    org.springframework.session: INFO
+    org.springframework.security: INFO
